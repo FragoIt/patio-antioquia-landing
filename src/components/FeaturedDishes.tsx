@@ -1,35 +1,35 @@
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { ExternalLink } from "lucide-react";
-import dish1 from "@/assets/dish-1.jpg";
-import dish2 from "@/assets/dish-2.jpg";
-import dish3 from "@/assets/dish-3.jpg";
-import dish4 from "@/assets/dish-4.jpg";
+import { getAssetsByCategory } from "@/lib/asset-manifest";
+import { ResponsiveImage } from "@/components/ui/ResponsiveImage";
 
 const dishes = [
   {
-    image: dish1,
-    name: "Bandeja Paisa Gourmet",
-    description: "La tradición antioqueña reinventada con ingredientes premium y presentación moderna.",
+    name: "Parrilla Mixta",
+    description: "Parrilla mixta con cortes selectos y guarniciones tradicionales.",
+    assetId: "plato-1"
   },
   {
-    image: dish2,
-    name: "Café & Panadería",
-    description: "Café de origen con notas frutales acompañado de pan artesanal recién horneado.",
+    name: "Arepas Artesanales",
+    description: "Arepas artesanales acompañadas de guarniciones frescas y salsas caseras.",
+    assetId: "plato-2"
   },
   {
-    image: dish3,
-    name: "Coctelería Tropical",
-    description: "Cócteles de autor con frutas tropicales, hierbas frescas y licores premium.",
+    name: "Pescado a la Plancha",
+    description: "Filete de pescado a la plancha con camarones y salsa.",
+    assetId: "plato-3"
   },
   {
-    image: dish4,
-    name: "Ensaladas & Saludable",
-    description: "Propuestas frescas y saludables con ingredientes orgánicos y proteínas de calidad.",
+    name: "Tabla de Entradas",
+    description: "Selección gourmet de entradas sobre tabla rústica de madera.",
+    assetId: "plato-4"
   },
 ];
 
 const FeaturedDishes = () => {
+  const dishImages = getAssetsByCategory('plato');
+
   return (
     <section id="featured-dishes" className="py-20 bg-background">
       <div className="container mx-auto px-4">
@@ -41,25 +41,34 @@ const FeaturedDishes = () => {
         </p>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-12">
-          {dishes.map((dish, index) => (
-            <Card 
-              key={index}
-              className="overflow-hidden border-none shadow-lg hover:shadow-2xl transition-all duration-300 group"
-            >
-              <div className="relative overflow-hidden h-64">
-                <img 
-                  src={dish.image} 
-                  alt={dish.name}
-                  className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-foreground/80 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-              </div>
-              <CardContent className="p-6">
-                <h3 className="text-xl font-bold mb-2 text-card-foreground">{dish.name}</h3>
-                <p className="text-muted-foreground">{dish.description}</p>
-              </CardContent>
-            </Card>
-          ))}
+          {dishes.map((dish, index) => {
+            const dishImage = dishImages.find(img => img.id === dish.assetId);
+            return (
+              <Card 
+                key={index}
+                className="overflow-hidden border-none shadow-lg hover:shadow-2xl transition-all duration-300 group"
+              >
+                <div className="relative overflow-hidden h-64">
+                  {dishImage ? (
+                    <ResponsiveImage 
+                      asset={dishImage} 
+                      className="h-full w-full group-hover:scale-110 transition-transform duration-500" 
+                      rounded={false}
+                    />
+                  ) : (
+                    <div className="w-full h-full bg-muted flex items-center justify-center">
+                      <span className="text-muted-foreground">Imagen no disponible</span>
+                    </div>
+                  )}
+                  <div className="absolute inset-0 bg-gradient-to-t from-foreground/80 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                </div>
+                <CardContent className="p-6">
+                  <h3 className="text-xl font-bold mb-2 text-card-foreground">{dish.name}</h3>
+                  <p className="text-muted-foreground">{dish.description}</p>
+                </CardContent>
+              </Card>
+            );
+          })}
         </div>
 
         <div className="text-center">

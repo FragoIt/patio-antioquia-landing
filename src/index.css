@@ -127,6 +127,49 @@ All colors MUST be HSL.
     animation: slideUp 0.6s ease-out;
   }
 
+  /* Film grain effect for video hero */
+  .bg-noise {
+    background-image: 
+      radial-gradient(circle at 1px 1px, rgba(255,255,255,0.15) 1px, transparent 0);
+    background-size: 20px 20px;
+    background-position: 0 0, 10px 10px;
+    animation: noise 0.2s infinite linear;
+  }
+
+  @keyframes noise {
+    0% { transform: translate(0, 0); }
+    50% { transform: translate(-1px, 1px); }
+    100% { transform: translate(1px, -1px); }
+  }
+
+  @keyframes float {
+    0%, 100% { transform: translateY(0px) rotate(0deg); opacity: 0.5; }
+    50% { transform: translateY(-20px) rotate(180deg); opacity: 1; }
+  }
+
+  .animate-float {
+    animation: float ease-in-out infinite;
+  }
+
+  /* Performance optimizations for animations */
+  .will-change-transform {
+    will-change: transform;
+  }
+  
+  .will-change-opacity {
+    will-change: opacity;
+  }
+  
+  .gpu-accelerated {
+    transform: translateZ(0);
+    backface-visibility: hidden;
+    perspective: 1000px;
+  }
+  
+  .smooth-scroll {
+    scroll-behavior: smooth;
+  }
+
   @keyframes fadeIn {
     from {
       opacity: 0;
@@ -145,5 +188,21 @@ All colors MUST be HSL.
       opacity: 1;
       transform: translateY(0);
     }
+  }
+}
+
+/* Reduce motion for users who prefer it */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+  
+  .motion-reduce-safe {
+    transform: none !important;
   }
 }

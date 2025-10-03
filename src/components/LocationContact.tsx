@@ -16,10 +16,11 @@ const LocationContact = () => {
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 max-w-6xl mx-auto">
           {/* Map */}
           <div className="rounded-lg overflow-hidden shadow-lg h-96">
+            {/* dale formato a este iframe para que ocupe todo el contenedor y sea responsive */}
             <iframe
-              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3966.3248765432!2d-75.3795!3d6.1584!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zNsKwMDknMzAuMiJOIDc1wrAyMic0Ni4yIlc!5e0!3m2!1sen!2sco!4v1234567890"
-              width="100%"
-              height="100%"
+              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d126940.00058904107!2d-75.441523461773!3d6.147483423469593!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8e469f2f7aaa1f25%3A0x7af532e1bbc4fed5!2srestaurante%20el%20patio%20de%20san%20antonio!5e0!3m2!1ses!2sco!4v1759450146377!5m2!1ses!2sco"
+              width="600"
+              height="450"
               style={{ border: 0 }}
               allowFullScreen
               loading="lazy"
